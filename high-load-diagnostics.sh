@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THRESHOLD=10
+THRESHOLD=0.10
 DIR="/var/log/mysql-monitor"
 
 mkdir -p "$DIR"
