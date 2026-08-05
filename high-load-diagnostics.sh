@@ -1,6 +1,6 @@
 #!/bin/bash
 
-THRESHOLD=1
+THRESHOLD=10
 DIR="/var/log/mysql-monitor"
 
 mkdir -p "$DIR"
@@ -117,10 +117,6 @@ echo
 
 echo "===== MySQL Processlist ====="
 timeout 15 mysqladmin processlist
-echo
-
-echo "===== MySQL Full Processlist ====="
-timeout 15 mysql -e "SHOW FULL PROCESSLIST\G"
 echo
 
 echo "===== MySQL Status ====="
