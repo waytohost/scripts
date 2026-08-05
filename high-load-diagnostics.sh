@@ -77,15 +77,15 @@ echo "Hostname : $(hostname)"
 echo "Uptime   : $(uptime)"
 echo "Load     : $(cat /proc/loadavg)"
 echo
-
+# ==============================================================================
 echo "===== Memory ====="
 free -h
 echo
-
+# ==============================================================================
 echo "===== CPU ====="
 top -bn1 | head -10
 echo
-
+# ==============================================================================
 echo "===== VMStat ====="
 vmstat 1 5
 echo
@@ -96,18 +96,20 @@ if command -v sar >/dev/null 2>&1; then
     echo
 fi
 
+# ==============================================================================
+
 echo "===== TCP Connection States ====="
 ss -ant | awk 'NR>1 {print $1}' | sort | uniq -c | sort -nr
 echo
-
+# ==============================================================================
 echo "===== SYN-RECV Connections ====="
 ss -antp state syn-recv
 echo
-
+# ==============================================================================
 echo "===== CLOSE-WAIT Connections ====="
 ss -antp state close-wait
 echo
-
+# ==============================================================================
 echo "===== Top 20 IPs / Process / Port ====="
 netstat -ntp 2>/dev/null | awk '
 $6=="ESTABLISHED"{
@@ -170,27 +172,27 @@ printf "| %-26s | %-10s | %-40s |\n" "interactive_timeout" "$INTERACTIVE" "Inter
 printf "+----------------------------+------------+------------------------------------------+\n"
 '
 echo
-
+# ==============================================================================
 echo "===== MySQL Processlist ====="
 timeout 15 mysqladmin processlist
 echo
-
+# ==============================================================================
 echo "===== MySQL Status ====="
 timeout 15 mysqladmin status
 echo
-
+# ==============================================================================
 echo "===== Top Processes by CPU ====="
 ps -eo pid,user,%cpu,%mem,rss,cmd --sort=-%cpu | head -30
 echo
-
+# ==============================================================================
 echo "=====>>> Top CPU Threads <<<====="
 ps -eLo pid,tid,pcpu,pmem,user,comm --sort=-pcpu | head -30
 echo
-
+# ==============================================================================
 echo "===== Top Processes by Memory ====="
 ps -eo pid,user,%cpu,%mem,rss,cmd --sort=-%mem | head -30
 echo
-
+# ==============================================================================
 echo "===== Recent OOM Messages ====="
 dmesg -T 2>/dev/null | grep -i -E "killed process|out of memory|oom" | tail -20
 echo
