@@ -1,5 +1,61 @@
 #!/bin/bash
 
+# ==============================================================================
+# Script Name : server-health-monitor.sh
+# Description : Monitors server load and automatically captures a complete
+#               system health snapshot when the load average exceeds the
+#               configured threshold. The report includes CPU, memory,
+#               MySQL, network, processes, TCP connections, and OOM events
+#               to assist in troubleshooting high-load incidents.
+#
+# Author      : way to host
+# Company     : way to host
+# Website     : way to host
+# Version     : 1.0
+# Created     : 2026-08-05
+# Last Update : 2026-08-05
+# License     : Internal Use Only
+#
+# Features:
+#   ✓ Load threshold monitoring
+#   ✓ Automatic diagnostic snapshot
+#   ✓ CPU & Memory statistics
+#   ✓ VMStat statistics
+#   ✓ TCP connection state summary
+#   ✓ Top 20 IPs / Process / Port
+#   ✓ MySQL connection statistics
+#   ✓ MySQL processlist & full processlist
+#   ✓ MySQL server status
+#   ✓ Top CPU-consuming processes
+#   ✓ Top CPU-consuming threads
+#   ✓ Top memory-consuming processes
+#   ✓ Recent Linux OOM Killer events
+#   ✓ SAR load history (if installed)
+#   ✓ Automatic log rotation
+#
+# Log Directory:
+#   /var/log/mysql-monitor/
+#
+# Requirements:
+#   - Bash
+#   - MySQL Client (mysql, mysqladmin)
+#   - net-tools (netstat)
+#   - iproute2 (ss)
+#   - procps-ng (vmstat, ps, top)
+#   - sysstat (sar) [Optional]
+#
+# Changelog:
+# ------------------------------------------------------------------------------
+# v1.0 - Initial Release
+#   - Automatic server health snapshot on high load
+#   - Added MySQL diagnostics
+#   - Added network connection analysis
+#   - Added process and thread statistics
+#   - Added OOM detection
+#   - Added automatic log cleanup
+#
+# ==============================================================================
+
 THRESHOLD=10
 DIR="/var/log/mysql-monitor"
 
